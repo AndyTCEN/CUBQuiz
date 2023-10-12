@@ -1,0 +1,10 @@
+﻿################################################################################
+# 這個 .gitignore 檔案由 Microsoft(R) Visual Studio 自動建立。
+################################################################################
+
+/Quiz_Ans_Project/Quiz_Ans_Project/.vs/Quiz_Ans_Project
+/Quiz_Ans_Project/Quiz_Ans_Project/q1/obj
+/Quiz_Ans_Project/Quiz_Ans_Project/q1/bin/Debug/net6.0
+/Quiz_Ans_Project/Quiz_Ans_Project/q2/bin/Debug/net6.0
+/Quiz_Ans_Project/Quiz_Ans_Project/q2/obj/Debug/net6.0
+/Quiz_Ans_Project/Quiz_Ans_Project/q2/obj
