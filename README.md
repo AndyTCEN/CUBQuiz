@@ -140,13 +140,13 @@ CREATE NONCLUSTERED INDEX IX_User_UserName ON [dbo].[User]
 
 
 >5.	我們可以將一個WebAPI的 Request/Response 生命周期簡化為下圖，請依序在空格中填入適當答案。
-![Alt text](image.png)
+![Alt text](image/image.png)
  
 Answer 1：
 Answer 2：
 
 >6.	我們可以將一個 ASP.NET MVC 的 Request/Response 生命周期簡化為下圖，請依序在空格中填入適當答案。
- ![Alt text](image-1.png)
+ ![Alt text](image/image-1.png)
 Answer 1：
 Answer 2：
 Answer 3：
@@ -159,10 +159,111 @@ Answer 5：
 >1.	API 回傳以下金額資訊，請您將金額 *利率0.33後，由大到小進行排序。 ( - 視為 0 )
 string[] amountList = { "1.2", "1.4", "0.2", "-", "-0.005" };
 
+[專案連結:q1](Quiz_Ans_Project/Quiz_Ans_Project/q1)
+```C#
+  public string[] NumSort(string[] amountList)
+        {
+            string[] result = new string[amountList.Length];
+            if (amountList.Length <= 0)
+                return result;
+            double[] doubles = new double[amountList.Length];
+            int count = 0;
+            foreach (var item in amountList)
+            {
+                doubles[count] = CheckStringToDouble(item);
+                count++;
+            }
+            result = doubles.Select(n => Multiply(n)).OrderByDescending(n => n).Select(n => n.ToString()).ToArray();
+            return result;
+        }
+
+        private static double CheckStringToDouble(string stringDouble)
+        {
+            if (stringDouble == "-")
+            {
+                return 0;
+            }
+            else if (!double.TryParse(stringDouble, out double doublecheck))
+            {
+                throw new AggregateException("輸入格式錯誤");
+            }
+            else
+            {
+                return doublecheck;
+            }
+        }
+        private static double Multiply(double inputDouble)
+        {
+            const double multiplier = 0.33;
+            return inputDouble * multiplier;
+        }
+
+```
+![Alt text](image/q1.jpg)
 
 >2.	承上題，請實作單元測試
+[專案連結:q2](Quiz_Ans_Project/Quiz_Ans_Project/q2)
+```C#
+ [TestClass()]
+    public class NumCountTests
+    {
+        INumCount NumCount;
 
+        public NumCountTests()
+        {
+            NumCount = new NumCount();
+        }
 
+        [TestMethod()]
+        public void NumSort_Mult_033_Input_Int_SortDesc_Out_Double()
+        {
+            string[] amountList = { "1","2","-1","-2" };
+            string[] except = { "0.66", "0.33","-0.33", "-0.66" };
+            var ans = NumCount.NumSort(amountList);
+            CollectionAssert.AreEqual(except, ans);
+        }
+
+        [TestMethod()]
+        public void NumSort_Mult_033_Input_SortDesc_Out_0()
+        {
+            string[] amountList = { "-", "-0.5", "-1", "-" };
+            string[] except = { "0", "0", "-0.165", "-0.33" };
+            var ans = NumCount.NumSort(amountList);
+            CollectionAssert.AreEqual(except, ans);
+        }
+
+        [TestMethod()]
+        public void NumSort_Input_StringEmpty_Out_AggregateException()
+        {
+            string[] amountList = { "1", " ", "-1", "-2" };
+            string except = "輸入格式錯誤";
+            try
+            {
+                var ans = NumCount.NumSort(amountList);
+            }
+            catch (Exception ex)
+            {
+                Assert.AreEqual(except,ex.Message);
+            }
+        }
+
+        [TestMethod()]
+        public void NumSort_Input_NotDouble_Out_AggregateException()
+        {
+            string[] amountList = { "1", "Test", "-1", "-2" };
+            string except = "輸入格式錯誤";
+            try
+            {
+                var ans = NumCount.NumSort(amountList);
+            }
+            catch (Exception ex)
+            {
+                Assert.AreEqual(except, ex.Message);
+            }
+        }
+    }
+```
+![Alt text](image/q2.jpg)
 >3.	客戶傳入信用卡號，請進行信用卡卡號隱碼，信用卡號分為16碼與12碼隱碼規則 : 僅顯示末4碼，其餘以*隱碼，並每四位以 - 分隔開Example :
 0123456789012345 -> ****-****-****-2345
 012345678901 -> ****-****-8901
