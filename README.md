@@ -159,7 +159,7 @@ Answer 5：
 >1.	API 回傳以下金額資訊，請您將金額 *利率0.33後，由大到小進行排序。 ( - 視為 0 )
 string[] amountList = { "1.2", "1.4", "0.2", "-", "-0.005" };
 
-[專案連結:q1](Quiz_Ans_Project/Quiz_Ans_Project/q1)
+[專案連結:q1](/Quiz_Ans_Project/Quiz_Ans_Project/q1)
 ```C#
   public string[] NumSort(string[] amountList)
         {
@@ -202,7 +202,7 @@ string[] amountList = { "1.2", "1.4", "0.2", "-", "-0.005" };
 ![Alt text](image/q1.jpg)
 
 >2.	承上題，請實作單元測試
-[專案連結:q2](Quiz_Ans_Project/Quiz_Ans_Project/q2)
+[專案連結:q2](/Quiz_Ans_Project/Quiz_Ans_Project/q2/)
 ```C#
  [TestClass()]
     public class NumCountTests
