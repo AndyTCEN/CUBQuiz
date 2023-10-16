@@ -752,18 +752,33 @@ CREATE NONCLUSTERED INDEX IX_User_UserName ON [dbo].[User]
 
 ## 三、ASP.NET
 >1.	ASP.NET MVC中的Filter是什麼? 請試著列舉你所知道的Filter，並舉例說明有什麼用處
-
+>>Ans：
+>>>* Filter是前端值進入Controller前後的操作，可用來驗證、修改、紀錄所需資料
+>>>* 所知道的Filter
+>>>>* Authorize：檢查呼叫方是否授權訪問該Controller或Action
+>>>>* ValidateAntiForgeryToken：驗證AntiForgeryToken，避免跨站請求偽造攻擊(CSRF)
+>>>>* 自定義Filter：針對專案結構或重複性高的功能設計，如LogFilter，可設計成進入Action前紀錄Log，離開Action後再做紀錄
 
 >2.	如果要在ASP.NET MVC或Web API中記下每個request的log資訊，你會怎麼做? 同樣的機制在ASP.NET Core怎麼做?
 
-
+>>Ans：
+>>>* .Net Framework
+>>>>* 使用自定義的LogFilter
+>>>>* 使用Handler，在Request進入離開時可執行Log
+>>>* .Net Core
+>>>>* 設定Middleware，並在Startup.cs註冊
 
 >3.	網站實做快取時有哪幾種方式, 請列舉及說明
-
+>>* Ans：
+>>>* 網頁快取：瀏覽器第一次讀取新網站時，會需要將網站資料，如：圖檔、影音檔，暫存在瀏覽器中，以利下次讀取時會更加快速，但若網站有更新圖檔、影音檔時，需透過crtl+F5清除快取，才能更新資料。
 
 
 >4.	在 ASP.NET Core 中，原本 ASP.NET 的程式進入點Application_Start() 由什麼取代?
-
+>>* Ans：
+>>>* 透過Startup.cs進入程式
+>>>* Startup.cs內有兩個方法：
+>>>>* ConfigureServices：用來執行DI注入，並註冊程式所需功能
+>>>>* Configure：程式執行管道，可用來設定Middleware、Route、環境變數
 
 
 
@@ -771,13 +786,13 @@ CREATE NONCLUSTERED INDEX IX_User_UserName ON [dbo].[User]
 
 
 >5.	我們可以將一個WebAPI的 Request/Response 生命周期簡化為下圖，請依序在空格中填入適當答案。
-![Alt text](image.png)
+![Alt text](/image/image.png)
  
 Answer 1：
 Answer 2：
 
 >6.	我們可以將一個 ASP.NET MVC 的 Request/Response 生命周期簡化為下圖，請依序在空格中填入適當答案。
- ![Alt text](image-1.png)
+ ![Alt text](/image/image-1.png)
 Answer 1：
 Answer 2：
 Answer 3：
