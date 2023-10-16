@@ -788,13 +788,20 @@ CREATE NONCLUSTERED INDEX IX_User_UserName ON [dbo].[User]
 >5.	我們可以將一個WebAPI的 Request/Response 生命周期簡化為下圖，請依序在空格中填入適當答案。
 ![Alt text](/image/image.png)
  
-Answer 1：
-Answer 2：
+>>>* Answer 1：ModelBinding
+>>>* Answer 2：Routing Dispatcher
+
+<a href=https://www.c-sharpcorner.com/UploadFile/2b481f/lifecycle-of-Asp-Net-web-api-message/>參考資料:Lifecycle of ASP.net Web API Message</a>
+
+![Alt text](/image/q3-5.jpg)
 
 >6.	我們可以將一個 ASP.NET MVC 的 Request/Response 生命周期簡化為下圖，請依序在空格中填入適當答案。
  ![Alt text](/image/image-1.png)
-Answer 1：
-Answer 2：
-Answer 3：
-Answer 4：
-Answer 5：
+Answer 1：Routing
+Answer 2：Controller Initialization
+Answer 3：Action Filter
+Answer 4：View Result
+Answer 5：View Engine
+<a href=https://nwpie.blogspot.com/2017/05/5-aspnet-mvc.html>參考資料:[探索 5 分鐘] 淺談 ASP.NET MVC 的生命週期</a>
+
+ ![Alt text](/image/q3-6.png)
