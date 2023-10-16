@@ -623,28 +623,28 @@ for (int i = 0; i < 15; i++)
 >8.	下列程式的主控台輸出會是?
 
 ```C#
-Public classB0
+Public class B0
 {
-Public virtual stringGetText()
+Public virtual string GetText()
     {
 return"Box0";
     }
 }
-Public abstract classB1 : B0
+Public abstract class B1 : B0
 {
-Public override stringGetText()
+Public override string GetText()
     {
 return"Box1";
     }
 }
-Public classB2 : B1
+Public class B2 : B1
 {
-Public override stringGetText()
+Public override string GetText()
     {
 return"Box2";
     }
 }
-Static classProgram
+Static class Program
 {
     [STAThread]
 Static voidMain()
@@ -657,6 +657,7 @@ Console.WriteLine(result);
     }
 }
 ```
+>Ans: Box2，box0變數最後裝的是new B2()，因繼承後override GetText() 為return Box2;，因此結果為Box2。
 
 
 ## 二、DB
