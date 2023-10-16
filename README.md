@@ -721,6 +721,11 @@ WHERE RK=1
 
 
 >4.	如果你需要調校SQL陳述式，而執行計畫顯示Table Scan是造成執行緩慢的原因，那你會怎麼做?
+>>Ans：
+>>>* 檢查該Table是否有PK，若無則新增PK
+>>>* 查詢SQL是否有模糊搜尋導致全表搜尋，若有則須調整模糊搜尋條件
+>>>* 查詢結果筆數是否過多，若過多，則須每次限制查詢筆數，優先顯示查詢結果
+>>>* 補充:若有常使用的多表查詢，可使用View，雖然不能增加效率，但可增加SQL易讀性
 
 
 
@@ -740,6 +745,9 @@ CREATE NONCLUSTERED INDEX IX_User_UserName ON [dbo].[User]
 >>C.	SELECT UserName FROM [dbo].[User] WHERE UserName like '%min'
 >>D.	SELECT UserName FROM [dbo].[User] WHERE UserName like'%min%'
 >>E.	SELECT UserName FROM [dbo].[User] WHERE Upper(UserName) like'MIN%'
+
+>>Ans：
+>>B，其他是使用Like模糊搜尋，會先Scan整張表，再做查詢
 
 
 ## 三、ASP.NET
