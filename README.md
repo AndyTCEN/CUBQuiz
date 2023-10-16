@@ -669,6 +669,26 @@ Exam [ ExamType ,ExamSubject , StdID , Score ]
 >* 列出每個班級的主考官姓名(ExaminerName)與學生人數
 >* 列出ExamType為「FinalExam」的考試，每班所有科目分數相加後，總分最高的學生姓名
 
+```SQL
+--列出每個班級的主考官姓名(ExaminerName)與學生人數
+SELECT DISTINCT ta.ClassID,  ta.ExerName,Count(*) OVER(PARTITION BY ta.ClassID) As StudentCount 
+FROM  Students st
+JOIN Examiner ta
+ON ta.ClassID=st.ClassID
+
+--列出ExamType為「FinalExam」的考試，每班所有科目分數相加後，總分最高的學生姓名
+SELECT * FROM(
+SELECT RANK() OVER(PARTITION BY st.ClassID ORDER BY TotalScore DESC) As RK,st.StdName FROM Students st
+JOIN (
+SELECT StdID,SUM(Score) OVER(PARTITION BY ExamSubject,StdID) As TotalScore FROM Exam
+WHERE ExamType ='FinalExam'
+) sc
+ON st.StdID=sc.StdID
+) rk
+WHERE RK=1
+
+```
+
 
 
 >2.	使用預存程序有什麼好處跟缺點? 使用ORM有什麼好處跟缺點?
