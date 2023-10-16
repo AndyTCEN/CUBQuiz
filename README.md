@@ -419,9 +419,55 @@ Console.ReadLine();
 輸入數字888輸出字串型別"888",
 輸入DateTime 2022/6/2 12:05:33輸出字串型別”2022/06/20”
 
+[專案連結:q3](Quiz_Ans_Project/Quiz_Ans_Project/q4)
+```C#
+//Program.cs
 
+using q4;
 
+IConvertHelper helper= new ConvertHelper();
+int inputint = 888;
+var result = helper.ConvertToString(inputint);
+Console.WriteLine("Sample1：Input={0} Output={1}",inputint, result);
 
+DateTime inputdatetime = DateTime.Now;
+ result = helper.ConvertToString(inputdatetime);
+Console.WriteLine("Sample2：Input={0} Output={1}", inputdatetime, result);
+
+Console.ReadLine();
+
+```
+
+```C#
+//IConvertHelper.cs
+public interface IConvertHelper
+{
+    string ConvertToString<T>(T Input);
+}
+
+```
+
+```C#
+//ConvertHelper.cs
+public class ConvertHelper: IConvertHelper
+    {
+        public string ConvertToString<T>(T Input)
+        {
+            string result=string.Empty;
+            if(typeof(T) ==typeof(string)||typeof(T)==typeof(int))
+            {
+                result = Input.ToString();
+            }
+            if (typeof(T) == typeof(DateTime))
+            {
+                result = Convert.ToDateTime(Input.ToString()).ToString("yyyy/MM/dd");
+            }
+            return result;
+        }
+    }
+
+```
+![Alt text](image/q4.jpg)
 >5.	什麼是Linq的延遲執行? 何時會觸發實際執行?
 
 
