@@ -575,9 +575,50 @@ Console.ReadLine();
 
 >7.	請解釋async await是什麼? 有什麼優缺點?
 
+[專案連結:q7](Quiz_Ans_Project/Quiz_Ans_Project/q7)
 
+>Ans：
+>>* 非同步等待，在執行呼叫WebAPI、I/O、DB查詢等功能時，會需要等待執行結果，因此可透過async await，進行多執行緒執行功能，讓程式不會因長時間執行而等待太久，執行效能上也較高。
+>>* 缺點如下：
+>>>* 程式執行流程複雜，較難偵錯：因採多執行緒，無法評估什麼時候可以獲得執行結果，若在該流程有變數是需要等待該非同步執行完成才能獲得，若沒有注意，可能會發生流程已執行到須向該變數取值，但該變數為Null的異常，會造成程式執行的不穩定。
 
+```C#
+//Program.cs
+using q7;
+AsyncAwait sample=new AsyncAwait();
+for (int i = 0; i < 15; i++)
+{
+    await Task.Delay(1000);
+    await sample.Flow();
+    Console.WriteLine("#{0}執行結果：{1}",i+1, sample.Result);
+}
+```
 
+```C#
+//AsyncAwait.cs
+ public class AsyncAwait
+    {
+        public int? Result;
+        public async Task Flow()
+        {
+            Result = null;
+             AsyncSample1();
+             AsyncSample2();
+        }
+
+        private async Task AsyncSample1()
+        {
+            await Task.Delay(1000);
+            Result = 10;
+        }
+
+        private async Task AsyncSample2()
+        {
+            await Task.Delay(2000);
+        }
+    }
+```
+![Alt text](image/q7.jpg)
 
 >8.	下列程式的主控台輸出會是?
 
