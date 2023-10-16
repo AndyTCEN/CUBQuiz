@@ -419,7 +419,7 @@ Console.ReadLine();
 輸入數字888輸出字串型別"888",
 輸入DateTime 2022/6/2 12:05:33輸出字串型別”2022/06/20”
 
-[專案連結:q3](Quiz_Ans_Project/Quiz_Ans_Project/q4)
+[專案連結:q4](Quiz_Ans_Project/Quiz_Ans_Project/q4)
 ```C#
 //Program.cs
 
@@ -470,7 +470,47 @@ public class ConvertHelper: IConvertHelper
 ![Alt text](image/q4.jpg)
 >5.	什麼是Linq的延遲執行? 何時會觸發實際執行?
 
+>Ans：Linq延遲執行是指在查詢階段如List.Select(n=>n),List.Where(n=>n.sid=="1")，只會先建立查詢流程，不會執行查詢結果。
+實際執行查詢結果為執行ToList()、ToArray()，等實體化時，會執行上述的查詢流程。
+執行效率上延遲執行會比立即執行高
+[專案連結:q5](Quiz_Ans_Project/Quiz_Ans_Project/q5)
 
+```C#
+using System.Diagnostics;
+
+for (int i = 0; i < 100; i++)
+{
+    Console.WriteLine("#{0}",i);
+    DeferredExec();
+}
+Console.ReadLine();
+
+static void DeferredExec()
+{
+    List<int> ints = new List<int>();
+    Random rnd = new Random();
+    for (int i = 0; i < 100000; i++)
+    {
+        ints.Add(rnd.Next(0, 20));
+    }
+
+    Stopwatch stopwatch = Stopwatch.StartNew();
+
+    Console.WriteLine("延遲查詢計時開始");
+    var resultint = ints.Where(n => n < 10);
+    stopwatch.Stop();
+    Console.WriteLine("延遲查詢計時結束，總耗時{0}毫秒", stopwatch.Elapsed.TotalMilliseconds);
+
+     stopwatch = Stopwatch.StartNew();
+
+    Console.WriteLine("立即查詢計時開始");
+    var resullist = ints.Where(n => n < 10).ToList();
+    stopwatch.Stop();
+    Console.WriteLine("立即查詢計時結束，總耗時{0}毫秒", stopwatch.Elapsed.TotalMilliseconds);
+}
+
+```
+![Alt text](image/q5.jpg)
 
 
 >6.	使用繼承時有哪些相關的修飾詞? 請列舉及說明。
