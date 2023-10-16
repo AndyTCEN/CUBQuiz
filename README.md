@@ -473,6 +473,7 @@ public class ConvertHelper: IConvertHelper
 >Ans：Linq延遲執行是指在查詢階段如List.Select(n=>n),List.Where(n=>n.sid=="1")，只會先建立查詢流程，不會執行查詢結果。
 實際執行查詢結果為執行ToList()、ToArray()，等實體化時，會執行上述的查詢流程。
 執行效率上延遲執行會比立即執行高
+
 [專案連結:q5](Quiz_Ans_Project/Quiz_Ans_Project/q5)
 
 ```C#
