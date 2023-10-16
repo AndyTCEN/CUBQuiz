@@ -516,6 +516,62 @@ static void DeferredExec()
 
 >6.	使用繼承時有哪些相關的修飾詞? 請列舉及說明。
 
+[專案連結:q6](Quiz_Ans_Project/Quiz_Ans_Project/q6)
+
+>Ans：
+>>* virtual，讓子類別繼承時可以override父類別的方法
+>>* override，子類別修改父類別方法時須使用的修飾詞
+>>* new，子類別修改父類別的繼承屬性
+
+```C#
+//Program.cs
+RectangleBase rectangle = new RectangleBase(20, 6);
+Console.WriteLine("Rectangle面積：{0}",rectangle.GetArea());
+
+rectangle = new SquareModel(10);
+Console.WriteLine("Square面積：{0}", rectangle.GetArea());
+Console.ReadLine();
+```
+
+```C#
+//RectangleBase.cs
+ public  class RectangleBase
+    {
+        public int Width { get; set; }
+        public int Height { get; set; }
+
+        public RectangleBase(int width, int height)
+        {
+            Width = width;
+            Height = height;
+        }
+
+        public virtual int GetArea()
+        {
+            return Width * Height;
+        }
+
+    }
+```
+
+```C#
+//SquareModel.cs
+ public class SquareModel : RectangleBase
+    {
+        public new int Height { get => this.Width; }
+        public SquareModel(int width) : base(width,width)
+        {
+
+        }
+
+        public override int GetArea()
+        {
+            return this.Width * Height;
+        }
+    }
+```
+![Alt text](image/q6.jpg)
+
 
 >7.	請解釋async await是什麼? 有什麼優缺點?
 
