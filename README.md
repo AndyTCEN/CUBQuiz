@@ -9,8 +9,8 @@ string[] amountList = { "1.2", "1.4", "0.2", "-", "-0.005" };
 
 
 >3.	客戶傳入信用卡號，請進行信用卡卡號隱碼，信用卡號分為16碼與12碼隱碼規則 : 僅顯示末4碼，其餘以*隱碼，並每四位以 - 分隔開Example :
-0123456789012345 -> ****-****-****-2345
-012345678901 -> ****-****-8901
+0123456789012345 -> \*\*\*\*-\*\*\*\*-\*\*\*\*-2345
+012345678901 -> \*\*\*\*-\*\*\*\*-8901
 
 
 
@@ -266,10 +266,150 @@ string[] amountList = { "1.2", "1.4", "0.2", "-", "-0.005" };
 ```
 ![Alt text](image/q2.jpg)
 >3.	客戶傳入信用卡號，請進行信用卡卡號隱碼，信用卡號分為16碼與12碼隱碼規則 : 僅顯示末4碼，其餘以*隱碼，並每四位以 - 分隔開Example :
-0123456789012345 -> ****-****-****-2345
-012345678901 -> ****-****-8901
+0123456789012345 -> \*\*\*\*-\*\*\*\*-\*\*\*\*-2345
+012345678901 -> \*\*\*\*-\*\*\*\*-8901
 
+[專案連結:q3](Quiz_Ans_Project/Quiz_Ans_Project/q3)
+```C#
+//Program.cs
+string credit16 = "5104315119201362";
+string credit12 = "012345678901";
+string creditError = "123";
 
+CreditCardModel model = new CreditCardModel()
+{
+    CreditCardNum = credit16
+};
+
+ICreditCardTool tool = new CreditCardTool(model);
+var result = tool.HiddenCreditNum();
+Console.WriteLine(result.HiddenCreditCardNum);
+
+ model = new CreditCardModel()
+{
+    CreditCardNum = credit12
+ };
+ tool = new CreditCardTool(model);
+ result = tool.HiddenCreditNum();
+Console.WriteLine(result.HiddenCreditCardNum);
+
+model = new CreditCardModel()
+{
+    CreditCardNum = creditError
+};
+tool = new CreditCardTool(model);
+result = tool.HiddenCreditNum();
+Console.WriteLine(result.HiddenCreditCardNum);
+Console.ReadLine();
+```
+```C#
+//CreditCardTool.cs
+  public class CreditCardTool : ICreditCardTool
+    {
+        private CreditCardModel CreditCardModel { get; set; }
+
+        public CreditCardTool(CreditCardModel creditCardModel)
+        {
+            this.CreditCardModel = creditCardModel;
+        }
+
+        public CreditCardModel HiddenCreditNum()
+        {
+            string hiddenNum = string.Empty;
+            if(!CheckCreditCardNum())
+            {
+                throw new Exception("信用卡格式輸入異常");
+            }
+            switch (CreditCardModel.CreditCardNum.Length)
+            {
+                case 16:
+                    hiddenNum = CreditNum16();
+                    break;
+                case 12:
+                    hiddenNum = CreditNum12();
+                    break;
+                default:
+                    throw new Exception("信用卡其他異常");
+            }
+            CreditCardModel.HiddenCreditCardNum = hiddenNum;
+            return CreditCardModel;
+
+        }
+
+        private string CreditNum16()
+        {
+            string[] creditNums = {
+            CreditCardModel.CreditCardNum.Substring(0,4),
+            CreditCardModel.CreditCardNum.Substring(4,4),
+            CreditCardModel.CreditCardNum.Substring(8,4),
+            CreditCardModel.CreditCardNum.Substring(12,4)
+            };
+            return ConvertCreditNumToStar(creditNums);
+        }
+
+        private string CreditNum12()
+        {
+            string[] creditNums = {
+            CreditCardModel.CreditCardNum.Substring(0,4),
+            CreditCardModel.CreditCardNum.Substring(4,4),
+            CreditCardModel.CreditCardNum.Substring(8,4),
+            };
+            return ConvertCreditNumToStar(creditNums);
+        }
+
+        private string ConvertCreditNumToStar(string[] creditNums)
+        {
+            StringBuilder sb = new StringBuilder();
+            for (int i = 0; i < creditNums.Length; i++)
+            {
+                if (i != creditNums.Length - 1)
+                    sb.Append("****").Append('-');
+                else
+                    sb.Append(creditNums[i]);
+            }
+            return sb.ToString();
+        }
+
+        private bool CheckCreditCardNum()
+        {
+            //找不到12碼驗證規則
+            if(CreditCardModel.CreditCardNum.Length == 12)
+                return true;
+            if (CreditCardModel.CreditCardNum.Length != 16)
+                return false;
+            int sum = 0;
+            bool doubleDigit = false;
+            for (int i = CreditCardModel.CreditCardNum.Length - 1; i >= 0; i--)
+            {
+                int digit = CreditCardModel.CreditCardNum[i] - '0';
+                if (doubleDigit)
+                {
+                    digit *= 2;
+                    if (digit > 9)
+                    {
+                        digit -= 9;
+                    }
+                }
+                sum += digit;
+                doubleDigit = !doubleDigit;
+            }
+            return (sum % 10) == 0;
+        }
+    }
+```
+
+```C#
+//CreditCardModel.cs
+    public class CreditCardModel
+    {
+        private string creditCardNum;
+        public string  CreditCardNum { get=> creditCardNum; set=> creditCardNum = value.Trim(); }
+        public string  HiddenCreditCardNum { get; set; }
+
+    }
+
+```
+![Alt text](image/q3.jpg)
 
 >4.	請用泛型實作一個function滿足以下需求:
 >>*	輸入參數型別可為 String、Int、DateTime…
