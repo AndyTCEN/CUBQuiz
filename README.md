@@ -791,6 +791,7 @@ CREATE NONCLUSTERED INDEX IX_User_UserName ON [dbo].[User]
 
 
 >5.	我們可以將一個WebAPI的 Request/Response 生命周期簡化為下圖，請依序在空格中填入適當答案。
+
 ![Alt text](/image/image.png)
  
 >>>* Answer 1：ModelBinding
