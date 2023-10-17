@@ -739,11 +739,16 @@ CREATE TABLE [dbo].[User](
 CREATE NONCLUSTERED INDEX IX_User_UserName ON [dbo].[User]
 ([UserName])
 ```
+
 >下列哪一段語法能有效使用Index Seek?
 >>A.	SELECT UserName FROM [dbo].[User] WHERE UserName Like 'min%'
+
 >>B.	SELECT UserName FROM [dbo].[User] WHERE LEFT(UserName,3) ='min'
+
 >>C.	SELECT UserName FROM [dbo].[User] WHERE UserName like '%min'
+
 >>D.	SELECT UserName FROM [dbo].[User] WHERE UserName like'%min%'
+
 >>E.	SELECT UserName FROM [dbo].[User] WHERE Upper(UserName) like'MIN%'
 
 >>Ans：
@@ -796,12 +801,15 @@ CREATE NONCLUSTERED INDEX IX_User_UserName ON [dbo].[User]
 ![Alt text](/image/q3-5.jpg)
 
 >6.	我們可以將一個 ASP.NET MVC 的 Request/Response 生命周期簡化為下圖，請依序在空格中填入適當答案。
+
  ![Alt text](/image/image-1.png)
+
 Answer 1：Routing
 Answer 2：Controller Initialization
 Answer 3：Action Filter
 Answer 4：View Result
 Answer 5：View Engine
+
 <a href=https://nwpie.blogspot.com/2017/05/5-aspnet-mvc.html>參考資料:[探索 5 分鐘] 淺談 ASP.NET MVC 的生命週期</a>
 
  ![Alt text](/image/q3-6.png)
