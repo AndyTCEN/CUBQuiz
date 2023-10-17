@@ -805,11 +805,11 @@ CREATE NONCLUSTERED INDEX IX_User_UserName ON [dbo].[User]
 
  ![Alt text](/image/image-1.png)
 
-Answer 1：Routing
-Answer 2：Controller Initialization
-Answer 3：Action Filter
-Answer 4：View Result
-Answer 5：View Engine
+>>>* Answer 1：Routing
+>>>* Answer 2：Controller Initialization
+>>>* Answer 3：Action Filter
+>>>* Answer 4：View Result
+>>>* Answer 5：View Engine
 
 <a href=https://nwpie.blogspot.com/2017/05/5-aspnet-mvc.html>參考資料:[探索 5 分鐘] 淺談 ASP.NET MVC 的生命週期</a>
 
